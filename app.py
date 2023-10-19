@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import csv
 import random
+import configparser
 from random import sample
 from flask import Flask, request, jsonify
 from sklearn.metrics.pairwise import cosine_similarity
@@ -14,10 +15,9 @@ from sqlalchemy.orm import sessionmaker
 app = Flask(__name__)
 
 # database 설정
-# app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://oven-backend-server-db.cfl5qlvutflx.ap-northeast-2.rds.amazonaws.com/oven'
-# app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://root:young2352!@localhost:3306/oven'
-# db = SQLAlchemy(app)
-database_url = 'mysql://admin:hongik2023@oven-backend-server-db.cfl5olvutflx.ap-northeast-2.rds.amazonaws.com/oven'
+config = configparser.ConfigParser()
+config.read('config.ini')
+database_url = config['database']['url']
 
 engine = create_engine(database_url)
 
@@ -166,4 +166,4 @@ def spring():
 
 
 if __name__ == '__main__':
-    app.run(debug=False,host="0.0.0.0",port=5000)
+    app.run(debug=False,host="0.0.0.0",port=6000)
