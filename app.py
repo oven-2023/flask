@@ -163,7 +163,7 @@ def spring():
     # else:
     #     return jsonify({"error": "Failed to send data to Spring"}), 500
 
-    return jsonify(response=recom_data)
+    return jsonify({"result": recom_data})
 
 
 if __name__ == '__main__':
