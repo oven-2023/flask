@@ -10,7 +10,7 @@ from random import sample
 from flask import Flask, request, jsonify
 from sklearn.metrics.pairwise import cosine_similarity
 from model import User, Work
-from sqlalchemy import create_engine
+import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
@@ -20,7 +20,7 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 database_url = config['database']['url']
 
-engine = create_engine(database_url)
+engine = sqlalchemy.create_engine(database_url)
 
 Session = sessionmaker(bind=engine)
 session = Session()
