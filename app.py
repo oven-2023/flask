@@ -27,7 +27,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-@app.route("/spring", methods=['POST'])
+@app.route("/spring", methods=['GET'])
 def spring():
     logging.basicConfig(level='DEBUG')
     logging.debug("ready to get")
@@ -139,7 +139,8 @@ def spring():
         return recom_movies
 
     
-    data_from_spring = request.data.decode('utf-8') # POST 요청에서 userId 추출
+    # data_from_spring = request.data.decode('utf-8') # POST 요청에서 userId 추출
+    data_from_spring = request.args.get('userId')
     userId = int(data_from_spring)
     # print(userId)
     # data_from_spring = request.get_json()
