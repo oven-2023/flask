@@ -6,6 +6,7 @@ import pandas as pd
 import csv
 import random
 import configparser
+import logging
 from random import sample
 from flask import Flask, request, jsonify
 from sklearn.metrics.pairwise import cosine_similarity
@@ -28,6 +29,8 @@ session = Session()
 
 @app.route("/spring", methods=['POST'])
 def spring():
+    logging.basicConfig(level='DEBUG')
+    logging.debug("ready to get")
     with open('Rating.csv', 'w', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
 
