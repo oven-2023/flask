@@ -59,7 +59,7 @@ def spring():
     ratings = ratings.drop('user_id', axis=0)
     ratings.head()
 
-    base_src = '/home/ubuntu/srv/ubuntu'
+    base_src = '/home/ubuntu/srv/flask'
     movie_src = os.path.join(base_src, 'Movie.csv')
     i_cols = ['work_id',
               'sf', 'action', 'adult', 'adventure', 'animation', 'comedy', 'criminal', 'documentary', 'drama',
