@@ -29,8 +29,6 @@ session = Session()
 
 @app.route("/spring", methods=['GET'])
 def spring():
-    logging.basicConfig(level='DEBUG')
-    logging.debug("ready to get")
     with open('Rating.csv', 'w', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
 
@@ -61,8 +59,8 @@ def spring():
     ratings = ratings.drop('user_id', axis=0)
     ratings.head()
 
-    # base_src = '/home/ubuntu/flask'
-    movie_src = os.path.join(os.getcwd(), 'Movie.csv')
+    base_src = '/home/ubuntu/srv/ubuntu'
+    movie_src = os.path.join(base_src, 'Movie.csv')
     i_cols = ['work_id',
               'sf', 'action', 'adult', 'adventure', 'animation', 'comedy', 'criminal', 'documentary', 'drama',
               'family ', 'fantasy',
