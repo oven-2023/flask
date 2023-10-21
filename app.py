@@ -29,6 +29,8 @@ session = Session()
 
 @app.route("/spring", methods=['GET'])
 def spring():
+    logging.basicConfig(level='DEBUG')
+    logging.debug('ready to get')
     with open('Rating.csv', 'w', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
 
