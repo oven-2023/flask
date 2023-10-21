@@ -141,32 +141,14 @@ def spring():
     # data_from_spring = request.data.decode('utf-8') # POST 요청에서 userId 추출
     data_from_spring = request.args.get('userId')
     userId = int(data_from_spring)
-    # print(userId)
-    # data_from_spring = request.get_json()
-    # userId = data_from_spring[0]
-    # csvContent = data_from_spring[1]
-    # csv_file = StringIO(csvContent);
-    # with open("/home/ubuntu/flask/Rating.csv", "w", newline="") as output_file:
-    #     reader = csv.reader(csv_file)
-    #     writer = csv.writer(output_file)
-    #
-    #     for row in reader:
-    #         writer.writerow(row)
 
     recommendations = recom_movie_by_CF_knn(user_id=str(userId), n_items= 10, neighbors_size=30)
     index_array = recommendations.index.to_numpy()
     recom_data = json.dumps(index_array.tolist())
-    print(recom_data)
+    logging.debug(recom_data)
 
-    # spring_api_url = "https://hs-ceos.shop/home/recommendation/works"
-    # response = requests.post(spring_api_url, data=recom_data)
 
-    # if response.status_code == 200:
-    #     return jsonify({"result": "Data processed and sent to Spring successfully"})
-    # else:
-    #     return jsonify({"error": "Failed to send data to Spring"}), 500
-
-    return jsonify({"result": recom_data})
+    return jsonify(recom_data)
 
 
 if __name__ == '__main__':
