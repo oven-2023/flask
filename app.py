@@ -16,19 +16,29 @@ from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
 
-# database 설정
-config = configparser.ConfigParser()
-config.read('config.ini')
-database_url = config['database']['url']
-
-engine = sqlalchemy.create_engine(database_url)
-
-Session = sessionmaker(bind=engine)
-session = Session()
+# # database 설정
+# config = configparser.ConfigParser()
+# config.read('config.ini')
+# database_url = config['database']['url']
+#
+# engine = sqlalchemy.create_engine(database_url)
+#
+# Session = sessionmaker(bind=engine)
+# session = Session()
 
 
 @app.route("/spring", methods=['GET'])
 def spring():
+    # database 설정
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    database_url = config['database']['url']
+
+    engine = sqlalchemy.create_engine(database_url)
+
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
     logging.basicConfig(level='DEBUG')
     logging.debug('ready to get')
     with open('Rating.csv', 'w', newline='') as csvfile:
