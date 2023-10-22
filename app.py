@@ -148,7 +148,7 @@ def spring():
     logging.debug(recom_data)
 
 
-    return jsonify(recom_data)
+    return jsonify({"result":recom_data})
 
 
 if __name__ == '__main__':
