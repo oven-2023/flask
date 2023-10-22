@@ -33,7 +33,7 @@ def spring():
     logging.debug('ready to get')
     with open('Rating.csv', 'w', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
-
+        logging.debug('ready to write')
         users = session.query(User).all()
         all_works = session.query(Work).all()
 
@@ -49,6 +49,7 @@ def spring():
                 csv_writer.writerow(total_str.split(','))
 
     rating_src = os.path.join(os.getcwd(), 'Rating.csv')
+    logging.debug(os.getcwd())
     u_cols = ['user_id', 'work_id', 'rating']
     ratings = pd.read_csv(rating_src,
                           sep=',',
