@@ -146,7 +146,9 @@ def spring():
     index_array = recommendations.index.to_numpy()
     recom_data = json.dumps(index_array.tolist())
     logging.debug(recom_data)
-
+    logging.debug(type(recom_data))
+    data_list = json.loads(recom_data)
+    logging.debug(type(data_list))
 
     return jsonify({"result":recom_data})
 
