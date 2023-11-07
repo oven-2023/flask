@@ -10,7 +10,7 @@ import logging
 from random import sample
 from flask import Flask, request, jsonify
 from sklearn.metrics.pairwise import cosine_similarity
-from model import User, Work
+from model import User, Work, RatingWork
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
@@ -25,7 +25,6 @@ app = Flask(__name__)
 #
 # Session = sessionmaker(bind=engine)
 # session = Session()
-
 
 @app.route("/spring", methods=['GET'])
 def spring():
@@ -45,18 +44,27 @@ def spring():
         csv_writer = csv.writer(csvfile)
         logging.debug('ready to write')
         users = session.query(User).all()
-        all_works = session.query(Work).all()
+        # all_works = session.query(Work).all()
 
         csv_writer.writerow(["user_id", "work_id", "rating"])
 
         for user in users:
-            random_works = sample(all_works, 4)
+            # random_works = sample(all_works, 4)
             user_id_str = str(user.user_id)
-            for work in random_works:
-                work_id_str = str(work.work_id)
-                rating = str(random.randint(1, 3) + 2)
+
+            rating_works = session.query(RatingWork).filter(RatingWork.user == user).all()
+
+            for rating_work in rating_works:
+                work_id_str = str(rating_work.work_id)
+                rating = str(rating_work.rating)
                 total_str = user_id_str + "," + work_id_str + "," + rating
                 csv_writer.writerow(total_str.split(','))
+
+            # for work in random_works:
+            #     work_id_str = str(work.work_id)
+            #     rating = str(random.randint(1, 3) + 2)
+            #     total_str = user_id_str + "," + work_id_str + "," + rating
+            #     csv_writer.writerow(total_str.split(','))
 
     rating_src = os.path.join(os.getcwd(), 'Rating.csv')
     logging.debug(os.getcwd())

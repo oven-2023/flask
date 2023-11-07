@@ -51,4 +51,12 @@ class Provider(Base):
 
     work_list = relationship('WorkProvider', back_populates='provider')
 
+class RatingWork(Base):
+    __tablename__ = 'rating_work'
 
+    id = sqlalchemy.Column(sqlalchemy.BigInteger, primary_key=True, autoincrement=True)
+
+    user_id = sqlalchemy.Column(sqlalchemy.BigInteger, sqlalchemy.ForeignKey('user.user_id'))
+    work_id = sqlalchemy.Column(sqlalchemy.BigInteger, sqlalchemy.ForeignKey('work.work_id'))
+
+    rating = sqlalchemy.Column(sqlalchemy.Float)
