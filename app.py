@@ -52,7 +52,7 @@ def spring():
             # random_works = sample(all_works, 4)
             user_id_str = str(user.user_id)
 
-            rating_works = session.query(RatingWork).filter(RatingWork.user == user).all()
+            rating_works = session.query(RatingWork).filter(RatingWork.user_id == user.user_id).all()
 
             for rating_work in rating_works:
                 work_id_str = str(rating_work.work_id)
