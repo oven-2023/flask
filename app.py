@@ -66,6 +66,27 @@ def spring():
             #     total_str = user_id_str + "," + work_id_str + "," + rating
             #     csv_writer.writerow(total_str.split(','))
 
+    with open('Movie.csv', 'w', newline='') as csvfile:
+        csv_writer = csv.writer(csvfile, delimiter='|')
+        logging.debug('ready to write movie')
+        works = session.query(Work).all()
+
+        csv_writer.writerow(["work_id", "sf", "action", "adult", "adventure", "animation", "comedy", "criminal",
+                             "documentary", "drama", "family", "fantasy", "horror", "music", "musical", "mystery",
+                             "performance", "romance", "thriller", "variety", "war", "western"])
+
+        for work in works:
+            row_data = [work.work_id, int.from_bytes(work.sf, byteorder='big'),int.from_bytes(work.action, byteorder='big'),
+                        int.from_bytes(work.adult, byteorder='big'), int.from_bytes(work.adventure, byteorder='big'),
+                        int.from_bytes(work.animation, byteorder='big'), int.from_bytes(work.comedy, byteorder='big'),
+                        int.from_bytes(work.criminal, byteorder='big'), int.from_bytes(work.documentary, byteorder='big'), int.from_bytes(work.drama, byteorder='big'),
+                        int.from_bytes(work.family, byteorder='big'), int.from_bytes(work.fantasy, byteorder='big'), int.from_bytes(work.horror, byteorder='big'),
+                        int.from_bytes(work.music, byteorder='big'), int.from_bytes(work.musical, byteorder='big'), int.from_bytes(work.mystery, byteorder='big'),
+                        int.from_bytes(work.performance, byteorder='big'), int.from_bytes(work.romance, byteorder='big'), int.from_bytes(work.thriller, byteorder='big'),
+                        int.from_bytes(work.variety, byteorder='big'), int.from_bytes(work.war, byteorder='big'), int.from_bytes(work.western, byteorder='big')]
+            csv_writer.writerow(row_data)
+
+
     rating_src = os.path.join(os.getcwd(), 'Rating.csv')
     logging.debug(os.getcwd())
     u_cols = ['user_id', 'work_id', 'rating']

@@ -18,6 +18,7 @@ class User(Base):
         self.nickname = nickname
         self.password = password
 
+
 class Work(Base):
     __tablename__ = 'work'
 
@@ -31,6 +32,28 @@ class Work(Base):
     summary = sqlalchemy.Column(sqlalchemy.String(10000))
     poster = sqlalchemy.Column(sqlalchemy.String(255))
     provider_list = relationship('WorkProvider', back_populates='work')
+
+    action = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    sf = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    fantasy = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    adventure = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    criminal = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    thriller = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    mystery = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    comedy = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    romance = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    drama = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    animation = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    horror = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    variety = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    documentary = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    musical = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    family = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    western = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    war = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    performance = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    adult = sqlalchemy.Column(sqlalchemy.Integer, default=False)
+    music = sqlalchemy.Column(sqlalchemy.Integer, default=False)
 
 class WorkProvider(Base):
     __tablename__ = 'work_provider'
