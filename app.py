@@ -182,7 +182,7 @@ def spring():
     data_from_spring = request.args.get('userId')
     userId = int(data_from_spring)
 
-    recommendations = recom_movie_by_CF_knn(user_id=str(userId), n_items= 18, neighbors_size=30)
+    recommendations = recom_movie_by_CF_knn(user_id=str(userId), n_items= 18, neighbors_size=20)
     index_array = recommendations.index.to_numpy()
     recom_data = json.dumps(index_array.tolist())
     logging.debug(recom_data)
