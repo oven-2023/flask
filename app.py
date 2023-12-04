@@ -26,6 +26,93 @@ app = Flask(__name__)
 # Session = sessionmaker(bind=engine)
 # session = Session()
 
+# config = configparser.ConfigParser()
+# config.read('config.ini')
+# database_url = config['database']['url']
+#
+# engine = sqlalchemy.create_engine(database_url)
+#
+# Session = sessionmaker(bind=engine)
+# session = Session()
+#
+# logging.basicConfig(level='DEBUG')
+# logging.debug('ready to get')
+# with open('Rating.csv', 'w', newline='') as csvfile:
+#     csv_writer = csv.writer(csvfile)
+#     logging.debug('ready to write')
+#     users = session.query(User).all()
+#     # all_works = session.query(Work).all()
+#
+#     csv_writer.writerow(["user_id", "work_id", "rating"])
+#
+#     for user in users:
+#         # random_works = sample(all_works, 4)
+#         user_id_str = str(user.user_id)
+#
+#         rating_works = session.query(RatingWork).filter(RatingWork.user_id == user.user_id).all()
+#
+#         for rating_work in rating_works:
+#             work_id_str = str(rating_work.work_id)
+#             rating = str(rating_work.rating)
+#             total_str = user_id_str + "," + work_id_str + "," + rating
+#             csv_writer.writerow(total_str.split(','))
+#
+#         # for work in random_works:
+#         #     work_id_str = str(work.work_id)
+#         #     rating = str(random.randint(1, 3) + 2)
+#         #     total_str = user_id_str + "," + work_id_str + "," + rating
+#         #     csv_writer.writerow(total_str.split(','))
+#
+# with open('Movie.csv', 'w', newline='') as csvfile:
+#     csv_writer = csv.writer(csvfile, delimiter='|')
+#     logging.debug('ready to write movie')
+#     works = session.query(Work).all()
+#
+#     csv_writer.writerow(["work_id", "sf", "action", "adult", "adventure", "animation", "comedy", "criminal",
+#                              "documentary", "drama", "family", "fantasy", "horror", "music", "musical", "mystery",
+#                              "performance", "romance", "thriller", "variety", "war", "western"])
+#
+#     for work in works:
+#         row_data = [work.work_id, int.from_bytes(work.sf, byteorder='big'),int.from_bytes(work.action, byteorder='big'),
+#                         int.from_bytes(work.adult, byteorder='big'), int.from_bytes(work.adventure, byteorder='big'),
+#                         int.from_bytes(work.animation, byteorder='big'), int.from_bytes(work.comedy, byteorder='big'),
+#                         int.from_bytes(work.criminal, byteorder='big'), int.from_bytes(work.documentary, byteorder='big'), int.from_bytes(work.drama, byteorder='big'),
+#                         int.from_bytes(work.family, byteorder='big'), int.from_bytes(work.fantasy, byteorder='big'), int.from_bytes(work.horror, byteorder='big'),
+#                         int.from_bytes(work.music, byteorder='big'), int.from_bytes(work.musical, byteorder='big'), int.from_bytes(work.mystery, byteorder='big'),
+#                         int.from_bytes(work.performance, byteorder='big'), int.from_bytes(work.romance, byteorder='big'), int.from_bytes(work.thriller, byteorder='big'),
+#                         int.from_bytes(work.variety, byteorder='big'), int.from_bytes(work.war, byteorder='big'), int.from_bytes(work.western, byteorder='big')]
+#         csv_writer.writerow(row_data)
+#
+#
+# rating_src = os.path.join(os.getcwd(), 'Rating.csv')
+# logging.debug(os.getcwd())
+# u_cols = ['user_id', 'work_id', 'rating']
+# ratings = pd.read_csv(rating_src,
+#                           sep=',',
+#                           names=u_cols,
+#                           encoding='latin-1')
+#
+# ratings['rating'] = pd.to_numeric(ratings['rating'], errors='coerce')
+#
+# ratings = ratings.set_index('user_id')
+# ratings = ratings.drop('user_id', axis=0)
+# ratings.head()
+#
+# movie_src = os.path.join(os.getcwd(), 'Movie.csv')
+# i_cols = ['work_id',
+#               'sf', 'action', 'adult', 'adventure', 'animation', 'comedy', 'criminal', 'documentary', 'drama',
+#               'family ', 'fantasy',
+#               'horror', 'music', 'musical', 'mystery', 'performance', 'romance', 'thriller', 'variety', 'war',
+#               'western',
+#               ]
+# movies = pd.read_csv(movie_src,
+#                          sep='|',
+#                          names=i_cols,
+#                          encoding='utf-8')
+# movies = movies.set_index('work_id')
+# movies = movies.drop('work_id', axis=0)  # index 중복되어 삭제
+# movies.head()
+
 @app.route("/spring", methods=['GET'])
 def spring():
     # database 설정
@@ -182,7 +269,7 @@ def spring():
     data_from_spring = request.args.get('userId')
     userId = int(data_from_spring)
 
-    recommendations = recom_movie_by_CF_knn(user_id=str(userId), n_items= 18, neighbors_size=20)
+    recommendations = recom_movie_by_CF_knn(user_id=str(userId), n_items= 1, neighbors_size=20)
     index_array = recommendations.index.to_numpy()
     recom_data = json.dumps(index_array.tolist())
     logging.debug(recom_data)
